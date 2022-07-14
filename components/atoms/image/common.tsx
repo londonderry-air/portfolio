@@ -1,5 +1,11 @@
 import styled from 'styled-components'
-import { BorderProps } from 'shared/types/elements'
+
+export type BorderProps = {
+  width?: string
+  color?: string
+  style?: NonNullable<JSX.IntrinsicElements['div']['style']>['borderStyle']
+  radius?: string
+}
 
 export const Image = styled.div<{
   width: string
