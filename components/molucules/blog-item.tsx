@@ -24,8 +24,8 @@ export const BlogItem = (props: { post: Post; index: number }) => {
 
   useEffect(() => {
     setColor({
-      right: isMQ ? '#ADD59E' : '#FFFFFF',
-      left: '#ADD59E'
+      right: isMQ ? '#ccdae1' : '#FFFFFF',
+      left: '#ccdae1'
     })
   }, [isMQ])
 

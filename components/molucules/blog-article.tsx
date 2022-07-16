@@ -49,7 +49,7 @@ export const BlogArticle = (props: { post: Post }) => {
         borderColor={pallet.gray03}
         borderStyle={'dashed'}
         width={'100%'}
-        padding={'2em 0 0 0'}
+        padding={'2em 0 20vh 0'}
       >
         <div
           className="md-wrapper"
