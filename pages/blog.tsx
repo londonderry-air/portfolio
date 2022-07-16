@@ -21,6 +21,10 @@ export const Page = () => {
     }
   }, [isTransitioning])
 
+  useEffect(() => {
+    console.log(isMQ)
+  }, [isMQ])
+
   return (
     <ColorBox
       width={'100%'}
@@ -62,13 +66,13 @@ export const Page = () => {
           height={isMQ ? 'auto' : '100%'}
           position={'relative'}
           shrink={'0'}
-          overflowY={'scroll'}
+          overflowY={isMQ ? 'visible' : 'scroll'}
         >
           <Box
             width={'100%'}
-            height={'100%'}
-            padding={'2em'}
+            height={'auto'}
             position={isMQ ? 'relative' : 'absolute'}
+            padding={'2em'}
           >
             <BlogList posts={posts} />
           </Box>

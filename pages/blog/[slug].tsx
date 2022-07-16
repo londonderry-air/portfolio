@@ -48,8 +48,8 @@ export const Page = () => {
           justifyContent={'center'}
         >
           <ColorBox
-            width={isMQ ? '300px' : '20vw'}
-            height={isMQ ? '520px' : '30vw'}
+            width={isMQ ? '280px' : '20vw'}
+            height={isMQ ? '420px' : '30vw'}
             opacity={isReady ? 1 : 0}
             transition={1}
           >
@@ -98,7 +98,7 @@ export const Page = () => {
             way={'column'}
             width={'100%'}
             height={'100%'}
-            padding={'10vh 2em'}
+            padding={'10vh 1em'}
             position={'absolute'}
           >
             <BlogArticle post={posts[0]} />

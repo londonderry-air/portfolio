@@ -4,7 +4,21 @@ import { BlogItem } from '../molucules/blog-item'
 
 export const BlogList = (props: { posts: Post[] }) => {
   return (
-    <FlexBox width={'100%'} way={'column'}>
+    <FlexBox
+      width={'100%'}
+      height={'fit-content'}
+      overflowY={'hidden'}
+      way={'column'}
+    >
+      {props.posts.map((p, i) => (
+        <BlogItem key={i} index={i} post={p} />
+      ))}
+      {props.posts.map((p, i) => (
+        <BlogItem key={i} index={i} post={p} />
+      ))}
+      {props.posts.map((p, i) => (
+        <BlogItem key={i} index={i} post={p} />
+      ))}
       {props.posts.map((p, i) => (
         <BlogItem key={i} index={i} post={p} />
       ))}
