@@ -2,13 +2,13 @@ export const PAGE_TRANSITION_DURING = 1
 export const colorTransitions = [
   { path: '/', color: { right: '#FFFFFF', left: '#FFFFFF' } },
   { path: '/blog', color: { right: '#F7F7F7', left: '#F27B7B' } },
-  { path: '/about', color: { right: '#9096AF', left: '#9096AF' } }
+  { path: '/about', color: { right: '#456fcb', left: '#456fcb' } }
 ]
 
 export const colorMqTransitions = [
   { path: '/', color: { right: '#FFFFFF', left: '#FFFFFF' } },
   { path: '/blog', color: { right: '#F7F7F7', left: '#F7F7F7' } },
-  { path: '/about', color: { right: '#9096AF', left: '#9096AF' } }
+  { path: '/about', color: { right: '#d4ab05', left: '#d4ab05' } }
 ]
 
 export const getColorTransition = (path: string) => {

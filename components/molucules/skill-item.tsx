@@ -8,7 +8,7 @@ export const SkillItem = (props: { skill: string; status: string }) => {
     <BorderBox
       borderPosition={'bottom'}
       borderWidth={'2px'}
-      borderColor={'#B5B8C4'}
+      borderColor={'#D4D4D4'}
       borderStyle={'solid'}
       width={'100%'}
       padding={'1.5em 0'}

@@ -4,7 +4,7 @@ import { Box } from '../../components/atoms/box/common'
 import { FlexBox } from '../../components/atoms/box/flex'
 import { TransformBox } from '../../components/atoms/box/transform'
 import { usePost } from '../../hooks/usePost'
-import { Image } from '../../components/atoms/image/common'
+import { _Image } from '../../components/atoms/image/common'
 import { BlogArticle } from '../../components/molucules/blog-article'
 import useMediaQuery from '../../hooks/useMediaQuery'
 import { ColorBox } from '../../components/atoms/box/color'
@@ -17,11 +17,12 @@ export const Page = () => {
   const query = router.query
   const posts = usePost(query.slug as string)
   const [isReady, setReadyState] = useState(false)
+  const [isImgReady, setImgReadyState] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)
 
   useEffect(() => {
     if (posts.length > 0 && !isTransitioning) {
-      setTimeout(() => setReadyState(true), 1150)
+      setTimeout(() => setReadyState(true), 150)
     }
   }, [posts, isTransitioning])
 
@@ -50,14 +51,14 @@ export const Page = () => {
           <ColorBox
             width={isMQ ? '280px' : '20vw'}
             height={isMQ ? '420px' : '30vw'}
-            opacity={isReady ? 1 : 0}
+            opacity={isImgReady ? 1 : 0}
             transition={1}
           >
             <TransformBox
               width={'100%'}
               height={'100%'}
               transform={
-                isReady ? 'scale(1.0) ' : isMQ ? 'scale(1.0)' : 'scale(1.8)'
+                isImgReady ? 'scale(1.0) ' : isMQ ? 'scale(1.0)' : 'scale(1.8)'
               }
               origin={'center'}
               overflow={'hidden'}
@@ -67,14 +68,18 @@ export const Page = () => {
               <TransformBox
                 width={'100%'}
                 height={'100%'}
-                transform={isReady ? 'scale(1.0)' : 'scale(0.8)'}
+                transform={isImgReady ? 'scale(1.0)' : 'scale(0.8)'}
                 transition={1}
               >
-                <Image
+                <_Image
                   width={'100%'}
                   height={'100%'}
                   src={posts[0].thumbnail ? posts[0].thumbnail.url : '/dog.png'}
                   fit={'cover'}
+                  onLoad={(e) => {
+                    console.log(e)
+                    setImgReadyState(true)
+                  }}
                 />
               </TransformBox>
             </TransformBox>

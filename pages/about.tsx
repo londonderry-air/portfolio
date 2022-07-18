@@ -38,8 +38,9 @@ export const Page = () => {
         way={'column'}
         width={'100%'}
         height={'100vh'}
+        padding={isMQ ? '1em' : `0 ${100 / 12}vw`}
         shrink={'0'}
-        alignItems={'center'}
+        alignItems={'flex-start'}
         justifyContent={'center'}
         gap={'30px'}
       >
@@ -94,12 +95,12 @@ export const Page = () => {
       </FlexBox>
       <FlexBox
         way={'column'}
-        padding={isMQ ? '10vh 1em 0 1em' : '10vh 15vw 0 15vw'}
+        padding={isMQ ? '10vh 1em 0 1em' : `10vh ${100 / 12}vw 0 ${100 / 4}vw`}
         width={'100%'}
       >
         <BorderBox
           borderPosition={'bottom'}
-          borderWidth={'1px'}
+          borderWidth={'3px'}
           borderColor={'#FFFFFF'}
           borderStyle={'solid'}
           width={'100%'}
@@ -131,13 +132,13 @@ export const Page = () => {
       </FlexBox>
       <FlexBox
         way={'column'}
-        padding={isMQ ? '4em 1em' : '4em 15vw'}
+        padding={isMQ ? '4em 1em' : `10vh ${100 / 12}vw 0 ${100 / 4}vw`}
         width={'100%'}
         gap={'4em'}
       >
         <BorderBox
           borderPosition={'bottom'}
-          borderWidth={'1px'}
+          borderWidth={'3px'}
           borderColor={'#FFFFFF'}
           borderStyle={'solid'}
           width={'100%'}
@@ -156,33 +157,33 @@ export const Page = () => {
         <FlexBox
           way={'column'}
           width={'100%'}
-          padding={isMQ ? '0 0 0 0' : '0 0 0 20vw'}
+          padding={isMQ ? '0 0 15vh 0' : '0 0 15vh 20vw'}
           gap={'4em'}
         >
           <FlexBox way={'column'} width={'100%'}>
             <SkillTitle>LANGUAGE</SkillTitle>
-            <SkillItem skill={'Typescript'} status={'基本メインで使う'} />
-            <SkillItem skill={'Swift'} status={'触ったことある'} />
-            <SkillItem skill={'Python'} status={'バイトで触った程度'} />
+            <SkillItem skill={'Typescript'} status={'作りたいもの作れる'} />
+            <SkillItem skill={'Swift'} status={'簡単なアプリを作れる'} />
+            <SkillItem skill={'Python'} status={'勉強中'} />
           </FlexBox>
           <FlexBox way={'column'} width={'100%'}>
             <SkillTitle>FRAMEWORK</SkillTitle>
             <SkillItem skill={'Nextjs'} status={'基本メインで使う'} />
             <SkillItem skill={'React'} status={'触ったことある'} />
-            <SkillItem skill={'Angular'} status={'バイトで触った程度'} />
-            <SkillItem skill={'django'} status={'バイトで触った程度'} />
+            <SkillItem skill={'Angular'} status={'バイトで触っていた'} />
+            <SkillItem skill={'django'} status={'バイトで触っていた'} />
             <SkillItem skill={'frourio'} status={'触ったことある'} />
           </FlexBox>
           <FlexBox way={'column'} width={'100%'}>
             <SkillTitle>SERVERSIDE</SkillTitle>
-            <SkillItem skill={'Firestore'} status={'アプリ作った程度'} />
+            <SkillItem skill={'Firestore'} status={'簡単なアプリを作れる'} />
             <SkillItem
               skill={'Firebase Authentication'}
-              status={'アプリ作った程度'}
+              status={'簡単なアプリを作れる'}
             />
             <SkillItem
               skill={'Firebase Cloud Storage'}
-              status={'アプリ作った程度'}
+              status={'簡単なアプリを作れる'}
             />
             <SkillItem skill={'AWS(S3, EC2)'} status={'触ったことある'} />
             <SkillItem

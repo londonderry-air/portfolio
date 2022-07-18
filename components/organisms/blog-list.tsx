@@ -8,6 +8,7 @@ export const BlogList = (props: { posts: Post[] }) => {
   return (
     <FlexBox
       width={'100%'}
+      minHeight={isMQ ? '0' : '80vh'}
       padding={isMQ ? '0 0 20vh 0' : '0'}
       height={'fit-content'}
       overflowY={'hidden'}

@@ -11,6 +11,9 @@ export type Post = {
     name: string
     url: string
   }
+  custom: {
+    color?: string
+  }
 }
 
 export const usePost = (slug?: string): Post[] => {
