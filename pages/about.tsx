@@ -9,6 +9,7 @@ import { SkillTitle } from '../components/molucules/skill-title'
 import useMediaQuery from '../hooks/useMediaQuery'
 import { moduler } from '../utils/styles'
 import { transitionState, headState } from '../utils/atoms'
+import { CertItem } from '../components/molucules/cert-item'
 
 export const Page = () => {
   const [isLine1Show, setLine1Show] = useState(false)
@@ -193,6 +194,45 @@ export const Page = () => {
               status={'触ったことある'}
             />
           </FlexBox>
+        </FlexBox>
+      </FlexBox>
+      <FlexBox
+        way={'column'}
+        padding={isMQ ? '4em 1em' : `10vh ${100 / 12}vw 0 ${100 / 4}vw`}
+        width={'100%'}
+        gap={'4em'}
+      >
+        <BorderBox
+          borderPosition={'bottom'}
+          borderWidth={'3px'}
+          borderColor={'#FFFFFF'}
+          borderStyle={'solid'}
+          width={'100%'}
+          padding={'0 0 6px 0'}
+        >
+          <Word
+            size={moduler(-1)}
+            family={"'Zen Kaku Gothic New', sans-serif"}
+            color={'#FFFFFF'}
+            h_space={'0.1em'}
+            weight={'600'}
+          >
+            CERTIFICATION
+          </Word>
+        </BorderBox>
+        <FlexBox way={'column'} width={'100%'} gap={'1em'}>
+          <CertItem
+            name={'基本情報技術者'}
+            certId={'fe'}
+            date={'2018-10'}
+            color={'#80AC7F'}
+          />
+          <CertItem
+            name={'CSSWinner Nominee'}
+            certId={'csswinner_001'}
+            date={'2022-02'}
+            color={'#F5C47C'}
+          />
         </FlexBox>
       </FlexBox>
     </FlexBox>
