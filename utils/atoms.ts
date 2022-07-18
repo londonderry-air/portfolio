@@ -14,3 +14,11 @@ export const prevBgState = atom<{ right: string; left: string }>({
   key: 'prev-background-colors',
   default: { right: '#F27B7B', left: '#F4F4F4' }
 })
+
+export const headState = atom<{
+  title: string
+  ogImage: string
+}>({
+  key: 'head',
+  default: { title: 'Tomoki Shimizu', ogImage: './dog.png' }
+})

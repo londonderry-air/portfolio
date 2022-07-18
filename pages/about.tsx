@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { BorderBox } from '../components/atoms/box/border'
 import { FlexBox } from '../components/atoms/box/flex'
 import { Sentence, Word } from '../components/atoms/text/common'
@@ -8,7 +8,7 @@ import { SkillItem } from '../components/molucules/skill-item'
 import { SkillTitle } from '../components/molucules/skill-title'
 import useMediaQuery from '../hooks/useMediaQuery'
 import { moduler } from '../utils/styles'
-import { transitionState } from '../utils/atoms'
+import { transitionState, headState } from '../utils/atoms'
 
 export const Page = () => {
   const [isLine1Show, setLine1Show] = useState(false)
@@ -17,9 +17,11 @@ export const Page = () => {
   const [isLine4Show, setLine4Show] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)
   const isMQ = useMediaQuery()
+  const setHead = useSetRecoilState(headState)
 
   useEffect(() => {
     if (!isTransitioning) {
+      setHead({ title: 'ABOUT | Tomoki Shimizu', ogImage: './dog.png' })
       setTimeout(() => setLine1Show(true), 100)
       setTimeout(() => setLine2Show(true), 200)
       setTimeout(() => setLine3Show(true), 300)

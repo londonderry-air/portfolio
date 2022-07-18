@@ -1,19 +1,20 @@
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { FlexBox } from '../components/atoms/box/flex'
-import { transitionState } from '../utils/atoms'
+import { transitionState, headState } from '../utils/atoms'
 import { useEffect, useState } from 'react'
 import { UpslideSentence } from '../components/atoms/text/upslide'
 import { pallet } from '../utils/color'
 import useMediaQuery from '../hooks/useMediaQuery'
-
 export const Page = () => {
   const isMQ = useMediaQuery()
   const isTransitioning = useRecoilValue(transitionState)
   const [isLine1Show, setLine1Show] = useState(false)
   const [isLine2Show, setLine2Show] = useState(false)
+  const setHead = useSetRecoilState(headState)
 
   useEffect(() => {
     if (!isTransitioning) {
+      setHead({ title: 'Tomoki Shimizu', ogImage: './dog.png' })
       setTimeout(() => setLine1Show(true), 100)
       setTimeout(() => setLine2Show(true), 200)
     }

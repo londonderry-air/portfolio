@@ -6,18 +6,20 @@ import { Word } from '../components/atoms/text/common'
 import { BlogList } from '../components/organisms/blog-list'
 import useMediaQuery from '../hooks/useMediaQuery'
 import { usePost } from '../hooks/usePost'
-import { transitionState } from '../utils/atoms'
-import { useRecoilValue } from 'recoil'
+import { headState, transitionState } from '../utils/atoms'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 export const Page = () => {
   const posts = usePost()
   const isMQ = useMediaQuery()
   const [isShow, setShow] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)
+  const setHead = useSetRecoilState(headState)
 
   useEffect(() => {
     if (!isTransitioning) {
       setShow(true)
+      setHead({ title: 'BLOG | Tomoki Shimizu', ogImage: './dog.png' })
     }
   }, [isTransitioning])
 

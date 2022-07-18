@@ -8,8 +8,8 @@ import { _Image } from '../../components/atoms/image/common'
 import { BlogArticle } from '../../components/molucules/blog-article'
 import useMediaQuery from '../../hooks/useMediaQuery'
 import { ColorBox } from '../../components/atoms/box/color'
-import { transitionState } from '../../utils/atoms'
-import { useRecoilValue } from 'recoil'
+import { transitionState, headState } from '../../utils/atoms'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 export const Page = () => {
   const isMQ = useMediaQuery()
@@ -19,9 +19,14 @@ export const Page = () => {
   const [isReady, setReadyState] = useState(false)
   const [isImgReady, setImgReadyState] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)
+  const setHead = useSetRecoilState(headState)
 
   useEffect(() => {
     if (posts.length > 0 && !isTransitioning) {
+      setHead({
+        title: `${posts[0].title} | Tomoki Shimizu`,
+        ogImage: posts[0].thumbnail ? posts[0].thumbnail.url : './dog.png'
+      })
       setTimeout(() => setReadyState(true), 150)
     }
   }, [posts, isTransitioning])
