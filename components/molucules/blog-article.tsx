@@ -9,6 +9,9 @@ import { getMonthEngName } from '../../utils/date'
 
 export const BlogArticle = (props: { post: Post }) => {
   const _html = gen(props.post.markdown ?? '', {
+    h2: 'md-h2',
+    h3: 'md-h3',
+    h4: 'md-h4',
     img: 'md-img',
     p: 'md-p',
     a: 'md-a',

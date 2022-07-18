@@ -103,7 +103,7 @@ export const Page = () => {
             way={'column'}
             width={'100%'}
             height={'100%'}
-            padding={'10vh 1em'}
+            padding={'10vh 5%'}
             position={'absolute'}
           >
             <BlogArticle post={posts[0]} />
