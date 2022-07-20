@@ -10,6 +10,7 @@ import useMediaQuery from '../hooks/useMediaQuery'
 import { moduler } from '../utils/styles'
 import { transitionState, headState } from '../utils/atoms'
 import { CertItem } from '../components/molucules/cert-item'
+import { usePost } from '../hooks/usePost'
 
 export const Page = () => {
   const [isLine1Show, setLine1Show] = useState(false)
@@ -19,6 +20,7 @@ export const Page = () => {
   const isTransitioning = useRecoilValue(transitionState)
   const isMQ = useMediaQuery()
   const setHead = useSetRecoilState(headState)
+  const posts = usePost({ category: 'cert' })
 
   useEffect(() => {
     if (!isTransitioning) {
@@ -198,9 +200,9 @@ export const Page = () => {
       </FlexBox>
       <FlexBox
         way={'column'}
-        padding={isMQ ? '4em 1em' : `10vh ${100 / 12}vw 0 ${100 / 4}vw`}
+        padding={isMQ ? '4em 1em' : `10vh ${100 / 12}vw 10vh ${100 / 4}vw`}
         width={'100%'}
-        gap={'4em'}
+        gap={'2em'}
       >
         <BorderBox
           borderPosition={'bottom'}
@@ -221,18 +223,15 @@ export const Page = () => {
           </Word>
         </BorderBox>
         <FlexBox way={'column'} width={'100%'} gap={'1em'}>
-          <CertItem
-            name={'基本情報技術者'}
-            certId={'fe'}
-            date={'2018-10'}
-            color={'#80AC7F'}
-          />
-          <CertItem
-            name={'CSSWinner Nominee'}
-            certId={'csswinner_001'}
-            date={'2022-02'}
-            color={'#F5C47C'}
-          />
+          {posts.map((p) => (
+            <CertItem
+              key={p.slug}
+              name={p.title ?? ''}
+              certId={p.slug ?? '/about'}
+              date={p.release}
+              color={p.custom ? p.custom.color ?? '#FFFFFF' : '#FFFFFF'}
+            />
+          ))}
         </FlexBox>
       </FlexBox>
     </FlexBox>

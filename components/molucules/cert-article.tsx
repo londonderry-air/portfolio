@@ -6,6 +6,7 @@ import { BorderBox } from '../atoms/box/border'
 import { pallet } from '../../utils/color'
 import { FlexBox } from '../atoms/box/flex'
 import { getMonthEngName } from '../../utils/date'
+import { ColorBox } from '../atoms/box/color'
 
 export const CertArticle = (props: { post: Post }) => {
   const _html = gen(props.post.markdown ?? '', {
@@ -59,6 +60,42 @@ export const CertArticle = (props: { post: Post }) => {
           className="md-wrapper"
           dangerouslySetInnerHTML={{ __html: _html }}
         />
+        <BorderBox
+          borderPosition={'top'}
+          borderWidth={'2px'}
+          borderColor={pallet.gray01}
+          borderStyle={'dashed'}
+          width={'100%'}
+          margin={'10vh 0 0 0'}
+          padding={'2em 0 0 0'}
+        >
+          <FlexBox way={'column'} alignItems={'center'} gap={'1em'}>
+            <ColorBox
+              width={'60px'}
+              height={'60px'}
+              radius={'200vh'}
+              background={pallet.gray01}
+            >
+              <FlexBox
+                way={'row'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                width={'100%'}
+                height={'100%'}
+              >
+                <Word size={moduler(4)}>🙏</Word>
+              </FlexBox>
+            </ColorBox>
+            <Word
+              size={moduler(0)}
+              weight={'600'}
+              h_space={'0.02em'}
+              family="'Zen Kaku Gothic New', sans-serif"
+            >
+              Thank you for reading!
+            </Word>
+          </FlexBox>
+        </BorderBox>
       </BorderBox>
     </>
   )

@@ -4,19 +4,31 @@ import { Word } from '../atoms/text/common'
 import { moduler } from '../../utils/styles'
 import { CursorBox } from '../atoms/box/cursor'
 import { AnimLink } from '../atoms/link/animation'
+import { getMonthText } from '../../utils/date'
+import useMediaQuery from '../../hooks/useMediaQuery'
+import { useEffect, useState } from 'react'
 
 export const CertItem = (props: {
   name: string
   certId: string
-  date: string
+  date: Date
   color: string
 }) => {
+  const isMQ = useMediaQuery()
+  const [color, setColor] = useState({
+    right: isMQ ? props.color : '#FFFFFF',
+    left: props.color
+  })
+
+  useEffect(() => {
+    setColor({
+      right: isMQ ? props.color : '#FFFFFF',
+      left: props.color
+    })
+  }, [isMQ])
+
   return (
-    <AnimLink
-      width={'100%'}
-      href={`/cert/${props.certId}`}
-      color={{ right: '#FFFFFF', left: props.color }}
-    >
+    <AnimLink width={'100%'} href={`/cert/${props.certId}`} color={color}>
       <CursorBox cursor={'pointer'}>
         <BorderBox
           borderPosition={'bottom'}
@@ -46,7 +58,7 @@ export const CertItem = (props: {
               color={'#FFFFFF'}
               h_space={'0.1em'}
             >
-              {props.date}
+              {getMonthText(props.date)}
             </Word>
           </FlexBox>
         </BorderBox>

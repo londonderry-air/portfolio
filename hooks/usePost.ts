@@ -11,14 +11,19 @@ export type Post = {
     name: string
     url: string
   }
-  custom: {
+  custom?: {
     color?: string
   }
 }
 
-export const usePost = (slug?: string): Post[] => {
+export const usePost = (option: {
+  slug?: string
+  category?: string
+}): Post[] => {
   const { data, error } = useSWR(
-    `/api/post${slug ? `/${slug}` : ''}`,
+    `/api/blog${option.slug ? `/${option.slug}` : ''}${
+      option.category ? `?category=${option.category}` : ''
+    }`,
     fetcher,
     {
       revalidateOnFocus: false,

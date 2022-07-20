@@ -15,7 +15,7 @@ export const Page = () => {
   const isMQ = useMediaQuery()
   const router = useRouter()
   const query = router.query
-  const posts = usePost(query.slug as string)
+  const posts = usePost({ slug: query.slug as string })
   const [isReady, setReadyState] = useState(false)
   const [isImgReady, setImgReadyState] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)

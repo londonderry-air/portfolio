@@ -15,27 +15,17 @@ export const Page = () => {
   const isMQ = useMediaQuery()
   const router = useRouter()
   const query = router.query
-  const posts = usePost(query.name as string)
+  const posts = usePost({ slug: query.name as string })
   const [isReady, setReadyState] = useState(false)
   const [isImgReady, setImgReadyState] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)
   const setHead = useSetRecoilState(headState)
 
-  const jpNames = [
-    { name: 'fe', jpName: '基本情報技術者' },
-    { name: 'csswinner_001', jpName: 'CSSWinner Nominee' }
-  ]
-
-  const jpName =
-    jpNames.filter((n) => n.name === query.name).length > 0
-      ? jpNames.filter((n) => n.name === query.name)[0].jpName
-      : ''
-
   useEffect(() => {
     if (posts.length > 0 && !isTransitioning) {
       setHead({
-        title: `${jpName} | Tomoki Shimizu`,
-        ogImage: `./${query.certId}.png`
+        title: `${posts[0].title} | Tomoki Shimizu`,
+        ogImage: posts[0].thumbnail ? posts[0].thumbnail.url : './dog.png'
       })
       setTimeout(() => setReadyState(true), 150)
     }
@@ -89,7 +79,9 @@ export const Page = () => {
                 <_Image
                   width={'100%'}
                   height={'100%'}
-                  src={`/${query.name}.png`}
+                  src={
+                    posts[0].thumbnail ? posts[0].thumbnail.url : './dog.png'
+                  }
                   fit={'cover'}
                   onLoad={(e) => {
                     console.log(e)

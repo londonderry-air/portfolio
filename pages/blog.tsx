@@ -10,7 +10,7 @@ import { headState, transitionState } from '../utils/atoms'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 export const Page = () => {
-  const posts = usePost()
+  const posts = usePost({ category: 'blog' })
   const isMQ = useMediaQuery()
   const [isShow, setShow] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)
@@ -22,10 +22,6 @@ export const Page = () => {
       setHead({ title: 'BLOG | Tomoki Shimizu', ogImage: './dog.png' })
     }
   }, [isTransitioning])
-
-  useEffect(() => {
-    console.log(isMQ)
-  }, [isMQ])
 
   return (
     <ColorBox

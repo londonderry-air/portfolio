@@ -24,6 +24,13 @@ export const getDateText = (date: Date, isSlush?: boolean) => {
   }${zeroPadding(date.getDate(), 2)}`
 }
 
+export const getMonthText = (date: Date) => {
+  return `${zeroPadding(date.getFullYear(), 2)}-${zeroPadding(
+    date.getMonth() + 1,
+    2
+  )}`
+}
+
 export const getTimeText = (date: Date, isColon?: boolean) => {
   return `${zeroPadding(date.getHours(), 2)}${isColon ? ':' : ''}${zeroPadding(
     date.getMinutes(),
