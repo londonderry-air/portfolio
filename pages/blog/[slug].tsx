@@ -122,13 +122,7 @@ export const Page = (props: { post?: Post }) => {
 export default Page
 
 export const getStaticPaths = async () => {
-  const res = await fetch(
-    `${
-      process.env.NODE_ENV !== 'development'
-        ? 'https://tayori.vercel.app'
-        : 'http://localhost:3000'
-    }/api/post?category=blog`
-  )
+  const res = await fetch(`${process.env.CMS_ORIGIN}/api/post?category=blog`)
   const posts: Post[] = await res.json()
 
   const paths = posts.map((post) => ({
