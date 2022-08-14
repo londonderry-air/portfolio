@@ -1,9 +1,8 @@
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Box } from '../../components/atoms/box/common'
 import { FlexBox } from '../../components/atoms/box/flex'
 import { TransformBox } from '../../components/atoms/box/transform'
-import { usePost } from '../../hooks/usePost'
+import { Post } from '../../hooks/usePost'
 import { _Image } from '../../components/atoms/image/common'
 import useMediaQuery from '../../hooks/useMediaQuery'
 import { ColorBox } from '../../components/atoms/box/color'
@@ -11,27 +10,24 @@ import { transitionState, headState } from '../../utils/atoms'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { CertArticle } from '../../components/molucules/cert-article'
 
-export const Page = () => {
+export const Page = (props: { post?: Post }) => {
   const isMQ = useMediaQuery()
-  const router = useRouter()
-  const query = router.query
-  const posts = usePost({ slug: query.name as string })
   const [isReady, setReadyState] = useState(false)
   const [isImgReady, setImgReadyState] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)
   const setHead = useSetRecoilState(headState)
 
   useEffect(() => {
-    if (posts.length > 0 && !isTransitioning) {
+    if (props.post && !isTransitioning) {
       setHead({
-        title: `${posts[0].title} | Tomoki Shimizu`,
-        ogImage: posts[0].thumbnail ? posts[0].thumbnail.url : './dog.png'
+        title: `${props.post.title} | Tomoki Shimizu`,
+        ogImage: props.post.thumbnail ? props.post.thumbnail.url : './dog.png'
       })
       setTimeout(() => setReadyState(true), 150)
     }
-  }, [posts, isTransitioning])
+  }, [props.post, isTransitioning])
 
-  if (posts.length <= 0) return <></>
+  if (!props.post) return <></>
 
   return (
     <FlexBox
@@ -80,7 +76,9 @@ export const Page = () => {
                   width={'100%'}
                   height={'100%'}
                   src={
-                    posts[0].thumbnail ? posts[0].thumbnail.url : './dog.png'
+                    props.post.thumbnail
+                      ? props.post.thumbnail.url
+                      : './dog.png'
                   }
                   fit={'cover'}
                   onLoad={(e) => {
@@ -113,7 +111,7 @@ export const Page = () => {
             padding={'10vh 5%'}
             position={'absolute'}
           >
-            <CertArticle post={posts[0]} />
+            <CertArticle post={props.post} />
           </FlexBox>
         </ColorBox>
       </Box>
@@ -122,3 +120,52 @@ export const Page = () => {
 }
 
 export default Page
+
+export const getStaticPaths = async () => {
+  const res = await fetch(
+    `${
+      process.env.NODE_ENV !== 'development'
+        ? 'https://tayori.vercel.app'
+        : 'http://localhost:3000'
+    }/api/post?category=cert`
+  )
+  const posts: Post[] = await res.json()
+
+  const paths = posts.map((post) => ({
+    params: {
+      slug: post.slug
+    }
+  }))
+
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps = async ({
+  params
+}: {
+  params: { slug: string }
+}) => {
+  // const origin = process.env.SOYO_ORIGIN
+  const data = await fetch(
+    `${process.env.CMS_ORIGIN}/api/post${params.slug ? `/${params.slug}` : ''}`
+  )
+
+  if (data.status !== 200) {
+    return {
+      props: {
+        post: null
+      },
+      revalidate: 60 * 60 * 24
+    }
+  }
+
+  const post: Post = await data.json()
+  post.release = new Date(post.release)
+
+  return {
+    props: {
+      post: JSON.parse(JSON.stringify(post))
+    },
+    revalidate: 60 * 60 * 24
+  }
+}

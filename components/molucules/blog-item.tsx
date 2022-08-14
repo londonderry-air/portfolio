@@ -59,7 +59,7 @@ export const BlogItem = (props: { post: Post; index: number }) => {
                   size={moduler(-1)}
                   family="'Zen Kaku Gothic New', sans-serif"
                 >
-                  {props.post.release.getFullYear()}
+                  {new Date(props.post.release).getFullYear()}
                 </Sentence>
                 <Sentence
                   h_space={'0.1em'}
@@ -67,7 +67,7 @@ export const BlogItem = (props: { post: Post; index: number }) => {
                   size={moduler(-1)}
                   family="'Zen Kaku Gothic New', sans-serif"
                 >
-                  {getDateText(props.post.release)}
+                  {getDateText(new Date(props.post.release))}
                 </Sentence>
                 <Sentence
                   h_space={'0.1em'}
@@ -75,7 +75,7 @@ export const BlogItem = (props: { post: Post; index: number }) => {
                   size={moduler(-1)}
                   family="'Zen Kaku Gothic New', sans-serif"
                 >
-                  {getTimeText(props.post.release)}
+                  {getTimeText(new Date(props.post.release))}
                 </Sentence>
               </FlexBox>
               <Sentence

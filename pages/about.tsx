@@ -10,9 +10,9 @@ import useMediaQuery from '../hooks/useMediaQuery'
 import { moduler } from '../utils/styles'
 import { transitionState, headState } from '../utils/atoms'
 import { CertItem } from '../components/molucules/cert-item'
-import { usePost } from '../hooks/usePost'
+import { Post } from '../hooks/usePost'
 
-export const Page = () => {
+export const Page = (props: { posts?: Post[] }) => {
   const [isLine1Show, setLine1Show] = useState(false)
   const [isLine2Show, setLine2Show] = useState(false)
   const [isLine3Show, setLine3Show] = useState(false)
@@ -20,7 +20,7 @@ export const Page = () => {
   const isTransitioning = useRecoilValue(transitionState)
   const isMQ = useMediaQuery()
   const setHead = useSetRecoilState(headState)
-  const posts = usePost({ category: 'cert' })
+  const posts = props.posts
 
   useEffect(() => {
     if (!isTransitioning) {
@@ -223,15 +223,16 @@ export const Page = () => {
           </Word>
         </BorderBox>
         <FlexBox way={'column'} width={'100%'} gap={'1em'}>
-          {posts.map((p) => (
-            <CertItem
-              key={p.slug}
-              name={p.title ?? ''}
-              certId={p.slug ?? '/about'}
-              date={p.release}
-              color={p.custom ? p.custom.color ?? '#FFFFFF' : '#FFFFFF'}
-            />
-          ))}
+          {posts &&
+            posts.map((p) => (
+              <CertItem
+                key={p.slug}
+                name={p.title ?? ''}
+                certId={p.slug ?? '/about'}
+                date={new Date(p.release)}
+                color={p.custom ? p.custom.color ?? '#FFFFFF' : '#FFFFFF'}
+              />
+            ))}
         </FlexBox>
       </FlexBox>
     </FlexBox>
@@ -239,3 +240,25 @@ export const Page = () => {
 }
 
 export default Page
+
+export const getStaticProps = async () => {
+  // const origin = process.env.SOYO_ORIGIN
+  const data = await fetch(`${process.env.CMS_ORIGIN}/api/post?category=cert`)
+  if (data.status !== 200) {
+    return {
+      props: {
+        posts: []
+      },
+      revalidate: 60 * 60 * 24
+    }
+  }
+
+  const posts: Post[] = await data.json()
+
+  return {
+    props: {
+      posts: JSON.parse(JSON.stringify(posts))
+    },
+    revalidate: 60 * 60 * 24
+  }
+}

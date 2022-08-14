@@ -5,12 +5,11 @@ import { ColorBox } from '../components/atoms/box/color'
 import { Word } from '../components/atoms/text/common'
 import { BlogList } from '../components/organisms/blog-list'
 import useMediaQuery from '../hooks/useMediaQuery'
-import { usePost } from '../hooks/usePost'
 import { headState, transitionState } from '../utils/atoms'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { Post } from '../hooks/usePost'
 
-export const Page = () => {
-  const posts = usePost({ category: 'blog' })
+export const Page = (props: { posts: Post[] }) => {
   const isMQ = useMediaQuery()
   const [isShow, setShow] = useState(false)
   const isTransitioning = useRecoilValue(transitionState)
@@ -72,7 +71,7 @@ export const Page = () => {
             position={isMQ ? 'relative' : 'absolute'}
             padding={'2em'}
           >
-            <BlogList posts={posts} />
+            {props.posts && <BlogList posts={props.posts} />}
           </Box>
         </Box>
       </FlexBox>
@@ -81,3 +80,25 @@ export const Page = () => {
 }
 
 export default Page
+
+export const getStaticProps = async () => {
+  // const origin = process.env.SOYO_ORIGIN
+  const data = await fetch(`${process.env.CMS_ORIGIN}/api/post?category=blog`)
+  if (data.status !== 200) {
+    return {
+      props: {
+        posts: []
+      },
+      revalidate: 60 * 60 * 24
+    }
+  }
+
+  const posts: Post[] = await data.json()
+
+  return {
+    props: {
+      posts: JSON.parse(JSON.stringify(posts))
+    },
+    revalidate: 60 * 60 * 24
+  }
+}
