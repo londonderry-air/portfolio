@@ -22,6 +22,8 @@ export const CertArticle = (props: { post: Post }) => {
     code: 'tokyo-night-dark'
   })
 
+  const release = new Date(props.post.release)
+
   return (
     <>
       <LargeH
@@ -43,8 +45,8 @@ export const CertArticle = (props: { post: Post }) => {
             Date
           </Word>
           <Word size={moduler(-1)} h_space={'0.02em'} weight={'500'}>
-            {getMonthEngName(props.post.release)} {props.post.release.getDate()}
-            , {props.post.release.getFullYear()}
+            {getMonthEngName(release)} {release.getDate()},{' '}
+            {release.getFullYear()}
           </Word>
         </FlexBox>
       </FlexBox>
