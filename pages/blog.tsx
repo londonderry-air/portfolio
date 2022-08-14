@@ -82,23 +82,32 @@ export const Page = (props: { posts: Post[] }) => {
 export default Page
 
 export const getStaticProps = async () => {
-  // const origin = process.env.SOYO_ORIGIN
-  const data = await fetch(`${process.env.CMS_ORIGIN}/api/post?category=blog`)
-  if (data.status !== 200) {
+  try {
+    // const origin = process.env.SOYO_ORIGIN
+    const data = await fetch(`${process.env.CMS_ORIGIN}/api/post?category=blog`)
+    if (data.status !== 200) {
+      return {
+        props: {
+          posts: []
+        },
+        revalidate: 60 * 60 * 24
+      }
+    }
+
+    const posts: Post[] = await data.json()
+
+    return {
+      props: {
+        posts: JSON.parse(JSON.stringify(posts))
+      },
+      revalidate: 60 * 60 * 24
+    }
+  } catch {
     return {
       props: {
         posts: []
       },
       revalidate: 60 * 60 * 24
     }
-  }
-
-  const posts: Post[] = await data.json()
-
-  return {
-    props: {
-      posts: JSON.parse(JSON.stringify(posts))
-    },
-    revalidate: 60 * 60 * 24
   }
 }
