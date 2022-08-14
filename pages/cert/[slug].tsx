@@ -123,6 +123,7 @@ export default Page
 
 export const getStaticPaths = async () => {
   const res = await fetch(`${process.env.CMS_ORIGIN}/api/post?category=cert`)
+  console.log(res)
   const posts: Post[] = await res.json()
 
   const paths = posts.map((post) => ({
@@ -141,7 +142,7 @@ export const getStaticProps = async ({
 }) => {
   // const origin = process.env.SOYO_ORIGIN
   const data = await fetch(
-    `${process.env.CMS_ORIGIN}/api/post${params.slug ? `/${params.slug}` : ''}`
+    `${process.env.CMS_ORIGIN}/api/post${params.slug ? '/' + params.slug : ''}`
   )
 
   if (data.status !== 200) {
